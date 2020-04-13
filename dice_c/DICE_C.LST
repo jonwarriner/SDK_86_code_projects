@@ -1,0 +1,64 @@
+iC-86  COMPILER   DICE_C                                                                     02/12/<0 20:23:31  PAGE   1
+
+
+DOS 5.0 (038-N) iC-86 COMPILER V4.0, COMPILATION OF MODULE DICE_C
+OBJECT MODULE PLACED IN DICE_C.OBJ
+COMPILER INVOKED BY: C:\IC86\IC86.EXE DICE_C.C MOD86 CODE SEARCHINCLUDE(C:\IC86\) 
+
+ line level  incl 
+
+    1             #include <I86.H>
+    2             
+    3             #define     DISP_CTRL_ADDR  0x0FFEA
+    4             #define     DISP_STAT_ADDR  0x0FFEA
+    5             
+    6             void main()
+    7             {
+    8     1           /**((short *)DISP_CTRL_ADDR) = 0x0D3;*/
+    9     1           outword(DISP_CTRL_ADDR, 0x0D3);
+   10     1           
+   11     1           while((inword(DISP_STAT_ADDR) & 0x000F) == 0);
+   12     1           
+   13     1           
+   14     1       }
+iC-86  COMPILER   DICE_C                                                                     02/12/<0 20:23:31  PAGE   2
+                  ASSEMBLY LISTING OF OBJECT CODE
+
+
+                                                   ; STATEMENT # 7
+                           main      PROC NEAR
+             0000  56              PUSH    SI
+             0001  57              PUSH    DI
+             0002  55              PUSH    BP
+             0003  8BEC            MOV     BP,SP
+                           @1:
+                                                   ; STATEMENT # 9
+             0005  B8D300          MOV     AX,0D3H
+             0008  BAEAFF          MOV     DX,0FFEAH
+             000B  EF              OUT     DX,AX
+                                                   ; STATEMENT # 11
+                           @3:
+             000C  BAEAFF          MOV     DX,0FFEAH
+             000F  ED              IN      AX,DX
+             0010  F7C00F00        TEST    AX,0FH
+             0014  7403            JZ      $+5H
+             0016  E90300          JMP     @2
+             0019  E9F0FF          JMP     @3
+                           @2:
+                                                   ; STATEMENT # 14
+             001C  5D              POP     BP
+             001D  5F              POP     DI
+             001E  5E              POP     SI
+             001F  C3              RET
+                           main      ENDP
+
+
+
+MODULE INFORMATION:
+
+     CODE AREA SIZE               = 0020H     32D
+     CONSTANT AREA SIZE           = 0000H      0D
+     DATA AREA SIZE               = 0000H      0D
+     MAXIMUM STACK SIZE           = 0002H      2D
+
+iC-86 COMPILATION COMPLETE.      0 WARNINGS,     0 ERRORS

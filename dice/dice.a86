@@ -1,0 +1,62 @@
+		NAME	DICE
+		ASSUME DS:DICE, CS:DICE
+DICE	SEGMENT AT 10H
+		MOV		CX,CS						;Define Data Segment
+		MOV		DS,CX						;Register equal to
+											;code segment register
+		MOV 	DX,0FFEAH					;clear display control
+		MOV		AL,0D3H						;word to 8279
+		OUT		DX,AL
+		
+READKEY:
+		MOV		DX,0FFEAH					;setup 8279 command port
+		IN		AL,DX							;read 8279 FIFO status
+		AND		AL,0FH						;mask all but FIFO count
+		JZ		READKEY + 3					;keep reading of zero
+		CALL	READATA						;dummy read to unload the
+											;presed key from fifo
+											
+ZERO:
+		MOV		BX,0000H					;initialize dice count to zero
+
+START:
+		INC		BX							;increment dice count
+		CMP		BL,07H						;if count equals 7, reset
+		JZ		ZERO						;count to 0
+		MOV		DI,BX						;put counter in DI register
+		MOV		CL,CDTBL[DI-1]				;put 7-segment display
+											;code in CL register,
+											;use DI as pointer into
+											;code table
+		MOV		DX,0FFEAH					;output "WRITE DISPLAY"
+		MOV		AL,087H						;control word to 8279
+		OUT		DX,AL
+		MOV		DX,0FFE8H					;output the dice count
+		MOV		AL,CL						;ti 8279 data port
+		OUT		DX,AL
+		MOV		DX,0FFEAH					;read 8279 FIFO status
+		IN		AL,DX
+		AND		AL,0FH						;mask all but FIFO count
+		JZ		START						;keep counting if no
+											;key pressed
+		CALL	READATA						;dummy red to unload
+											;the pressed key from FIFO
+		JMP		READKEY						;go read the next key pressed,
+											;then start count again
+READATA:
+		MOV		DX,0FFEAH					;output "READ DATA"
+		MOV		AL,040H						;control word to 8279
+		OUT		DX,AL
+		MOV		DX,0FFE8H					;setup and read 8279
+		IN		AL,DX							;data port, result in
+											;AL register
+		RET									;return
+		
+CDTBL	DB		06H							;7-segment code for "1"
+		DB		05BH						;7-segment code for "2"
+		DB		04FH						;7-segment code for "3"
+		DB		066H						;7-segment code for "4"
+		DB		06DH						;7-segment code for "5"
+		DB		07DH						;7-segment code for "6"
+DICE	ENDS
+		END

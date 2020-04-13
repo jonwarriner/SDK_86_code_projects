@@ -1,0 +1,129 @@
+8086/87/88/186/187 MACRO ASSEMBLER    DICE                                                 16:26:10  03/22/<0  PAGE    1
+
+
+DOS 5.0 (046-N) 8086/87/88/186/187 MACRO ASSEMBLER V3.3 ASSEMBLY OF MODULE DICE
+OBJECT MODULE PLACED IN DICE.OBJ
+ASSEMBLER INVOKED BY:  C:\IC86_41\ASM86.EXE DICE.A86
+
+
+LOC  OBJ                  LINE     SOURCE
+
+                             1                     NAME    DICE
+                             2                     ASSUME DS:DICE, CS:DICE
+----                         3     DICE    SEGMENT AT 10H
+0000 8CC9                    4                     MOV             CX,CS                                           ;Defi
+                                   ne Data Segment
+0002 8ED9                    5                     MOV             DS,CX                                           ;Regi
+                                   ster equal to
+                             6                                                                                     
+                                      ;code segment register
+0004 BAEAFF                  7                     MOV     DX,0FFEAH                                       ;clear displa
+                                   y control
+0007 B0D3                    8                     MOV             AL,0D3H                                         ;word
+                                    to 8279
+0009 EE                      9                     OUT             DX,AL
+                            10                     
+000A                        11     READKEY:
+000A BAEAFF                 12                     MOV             DX,0FFEAH                                       ;setu
+                                   p 8279 command port
+000D EC                     13                     IN              AL,DX                                           
+                                      ;read 8279 FIFO status
+000E 240F                   14                     AND             AL,0FH                                          ;mask
+                                    all but FIFO count
+0010 74FB                   15                     JZ              READKEY + 3                                     ;keep
+                                    reading of zero
+0012 E82800                 16                     CALL    READATA                                         ;dummy read t
+                                   o unload the
+                            17                                                                                     
+                                      ;presed key from fifo
+                            18                                                                                     
+                                      
+0015                        19     ZERO:
+0015 BB0000                 20                     MOV             BX,0000H                                        ;init
+                                   ialize dice count to zero
+                            21     
+0018                        22     START:
+0018 43                     23                     INC             BX                                              
+                                      ;increment dice count
+0019 80FB07                 24                     CMP             BL,07H                                          ;if c
+                                   ount equals 7, reset
+001C 74F7                   25                     JZ              ZERO                                            ;coun
+                                   t to 0
+001E 8BFB                   26                     MOV             DI,BX                                           ;put 
+                                   counter in DI register
+0020 8A4D4790               27                     MOV             CL,CDTBL[DI-1]                          ;put 7-segmen
+                                   t display
+                            28                                                                                     
+                                      ;code in CL register,
+                            29                                                                                     
+                                      ;use DI as pointer into
+                            30                                                                                     
+8086/87/88/186/187 MACRO ASSEMBLER    DICE                                                 16:26:10  03/22/<0  PAGE    2
+
+
+LOC  OBJ                  LINE     SOURCE
+
+                                      ;code table
+0024 BAEAFF                 31                     MOV             DX,0FFEAH                                       ;outp
+                                   ut "WRITE DISPLAY"
+0027 B087                   32                     MOV             AL,087H                                         ;cont
+                                   rol word to 8279
+0029 EE                     33                     OUT             DX,AL
+002A BAE8FF                 34                     MOV             DX,0FFE8H                                       ;outp
+                                   ut the dice count
+002D 8AC1                   35                     MOV             AL,CL                                           ;ti 8
+                                   279 data port
+002F EE                     36                     OUT             DX,AL
+0030 BAEAFF                 37                     MOV             DX,0FFEAH                                       ;read
+                                    8279 FIFO status
+0033 EC                     38                     IN              AL,DX
+0034 240F                   39                     AND             AL,0FH                                          ;mask
+                                    all but FIFO count
+0036 74E0                   40                     JZ              START                                           ;keep
+                                    counting if no
+                            41                                                                                     
+                                      ;key pressed
+0038 E80200                 42                     CALL    READATA                                         ;dummy red to
+                                    unload
+                            43                                                                                     
+                                      ;the pressed key from FIFO
+003B EBCD                   44                     JMP             READKEY                                         ;go r
+                                   ead the next key pressed,
+                            45                                                                                     
+                                      ;then start count again
+003D                        46     READATA:
+003D BAEAFF                 47                     MOV             DX,0FFEAH                                       ;outp
+                                   ut "READ DATA"
+0040 B040                   48                     MOV             AL,040H                                         ;cont
+                                   rol word to 8279
+0042 EE                     49                     OUT             DX,AL
+0043 BAE8FF                 50                     MOV             DX,0FFE8H                                       ;setu
+                                   p and read 8279
+0046 EC                     51                     IN              AL,DX                                           
+                                      ;data port, result in
+                            52                                                                                     
+                                      ;AL register
+0047 C3                     53                     RET                                                             
+                                      ;return
+                            54                     
+0048 06                     55     CDTBL   DB              06H                                                     ;7-se
+                                   gment code for "1"
+0049 5B                     56                     DB              05BH                                            ;7-se
+                                   gment code for "2"
+004A 4F                     57                     DB              04FH                                            ;7-se
+                                   gment code for "3"
+004B 66                     58                     DB              066H                                            ;7-se
+                                   gment code for "4"
+004C 6D                     59                     DB              06DH                                            ;7-se
+                                   gment code for "5"
+004D 7D                     60                     DB              07DH                                            ;7-se
+                                   gment code for "6"
+8086/87/88/186/187 MACRO ASSEMBLER    DICE                                                 16:26:10  03/22/<0  PAGE    3
+
+
+LOC  OBJ                  LINE     SOURCE
+
+----                        61     DICE    ENDS
+                            62                     END
+
+ASSEMBLY COMPLETE, NO ERRORS FOUND

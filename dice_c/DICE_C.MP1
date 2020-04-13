@@ -1,0 +1,20 @@
+
+DOS 5.0 (038-N) 8086 LINKER, V2.7
+
+INPUT FILES: DICE_C.OBJ
+OUTPUT FILE: DICE_C.LNK
+CONTROLS SPECIFIED IN INVOCATION COMMAND:
+DATE:  02/12/<0  TIME:  20:23:31
+
+
+LINK MAP OF MODULE DICE_C
+
+LOGICAL SEGMENTS INCLUDED:
+LENGTH ADDRESS ALIGN  SEGMENT         CLASS           OVERLAY
+ 0020H ------    W    CODE            CODE                          
+ 0000H ------    W    DATA            DATA                          
+ 0000H ------    W    CONST           CONST                         
+ 0002H ------    W    STACK           STACK                         
+
+INPUT MODULES INCLUDED:
+DICE_C.OBJ(DICE_C)

@@ -1,0 +1,145 @@
+iC-86  COMPILER   HELLO                                                                      03/29/<0 16:59:05  PAGE   1
+
+
+DOS 5.0 (045-N) iC-86 COMPILER V4.1, COMPILATION OF MODULE HELLO
+OBJECT MODULE PLACED IN hello.OBJ
+COMPILER INVOKED BY: C:\IC86_41\IC86.EXE hello.c mod86 code searchinclude(C:\IC86_41\) 
+
+ line level  incl 
+
+    1             /**************************************************************************************/
+    2             
+    3             /**************************************************************************************/
+    4             
+    5             #include <I86.H>
+    6             
+    7             #define     DISP_CTRL_ADDR  0x0FFEA
+    8             #define     DISP_STAT_ADDR  0x0FFEA
+    9             #define     DISP_DATA_ADDR  0x0FFE8
+   10             
+   11             typedef char int8_t;
+   12             typedef unsigned char uint8_t;
+   13             typedef short int16_t;
+   14             typedef unsigned short uint16_t;
+   15             typedef long int32_t;
+   16             typedef unsigned long uint32_t;
+   17             
+   18             unsigned int nums[6] = { 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D };
+   19             
+   20             /*uint16_t ReadData()
+   21             {
+   22                 outword(DISP_CTRL_ADDR, 0x040);
+   23                 return(inword(DISP_DATA_ADDR));
+   24             }*/
+   25             
+   26             void main()
+   27             {
+   28     1       uint16_t key;
+   29     1       uint16_t cnt = 0;
+   30     1       uint16_t i;
+   31     1       unsigned int test;
+   32     1       
+   33     1           test = nums[1];
+   34     1       
+   35     1           /* Clear the display */
+   36     1           outword(DISP_CTRL_ADDR, 0x0D3);
+   37     1           for(i = 0; i < 100; i++);   
+   38     1           outword(DISP_CTRL_ADDR, 0x087);         /* output WRITE DISPLAY to control word */
+   39     1           for(i = 0; i < 100; i++);
+   40     1           outword(DISP_DATA_ADDR, test);      /* output the new display data */
+   41     1           
+   42     1           while(1)
+   43     1           {
+   44     2               /* Has a key been pressed? */
+   45     2       /*      if((inword(DISP_STAT_ADDR) & 0x000F) != 0)*/
+   46     2       /*      {*/
+   47     2                   /* increment the counter but make sure it stays in the range of 0 - 6 */
+   48     2       /*          cnt++;
+   49     2                   if(cnt >= 0x07)
+   50     2                   {
+   51     2                       cnt = 1;
+iC-86  COMPILER   HELLO                                                                      03/29/<0 16:59:05  PAGE   2
+
+
+   52     2                   }*/
+   53     2                   
+   54     2       /*          key = ReadData();*/                     /* read the key data */
+   55     2       /*          outword(DISP_CTRL_ADDR, 0x087);*/           /* output WRITE DISPLAY to control word */
+   56     2       /*          outword(DISP_DATA_ADDR, nums[cnt-1]);*/     /* outputthe new display data */
+   57     2       
+   58     2       /*      }*/
+   59     2               
+   60     2               
+   61     2           }
+   62     1       }
+iC-86  COMPILER   HELLO                                                                      03/29/<0 16:59:05  PAGE   3
+                  ASSEMBLY LISTING OF OBJECT CODE
+
+
+                                                   ; STATEMENT # 27
+                           main      PROC NEAR
+             0000  55              PUSH    BP
+             0001  8BEC            MOV     BP,SP
+             0003  81EC0800        SUB     SP,8H
+                           @1:
+                                                   ; STATEMENT # 29
+             0007  C746FC0000      MOV     [BP].cnt,0H
+                                                   ; STATEMENT # 33
+             000C  8B060200        MOV     AX,nums+2H
+             0010  8946F8          MOV     [BP].test,AX
+                                                   ; STATEMENT # 36
+             0013  B8D300          MOV     AX,0D3H
+             0016  BAEAFF          MOV     DX,0FFEAH
+             0019  EF              OUT     DX,AX
+                                                   ; STATEMENT # 37
+             001A  C746FA0000      MOV     [BP].i,0H
+             001F  E90300          JMP     @4
+                           @2:
+             0022  FF46FA          INC     [BP].i
+                           @4:
+             0025  817EFA6400      CMP     [BP].i,64H
+             002A  7203            JB      $+5H
+             002C  E90300          JMP     @3
+             002F  E9F0FF          JMP     @2
+                           @3:
+                                                   ; STATEMENT # 38
+             0032  B88700          MOV     AX,87H
+             0035  BAEAFF          MOV     DX,0FFEAH
+             0038  EF              OUT     DX,AX
+                                                   ; STATEMENT # 39
+             0039  C746FA0000      MOV     [BP].i,0H
+             003E  E90300          JMP     @7
+                           @5:
+             0041  FF46FA          INC     [BP].i
+                           @7:
+             0044  817EFA6400      CMP     [BP].i,64H
+             0049  7203            JB      $+5H
+             004B  E90300          JMP     @6
+             004E  E9F0FF          JMP     @5
+                           @6:
+                                                   ; STATEMENT # 40
+             0051  8B46F8          MOV     AX,[BP].test
+             0054  BAE8FF          MOV     DX,0FFE8H
+             0057  EF              OUT     DX,AX
+                                                   ; STATEMENT # 42
+                           @9:
+                                                   ; STATEMENT # 61
+             0058  E9FDFF          JMP     @9
+                           @8:
+                                                   ; STATEMENT # 62
+             005B  8BE5            MOV     SP,BP
+             005D  5D              POP     BP
+             005E  C3              RET
+                           main      ENDP
+iC-86  COMPILER   HELLO                                                                      03/29/<0 16:59:05  PAGE   4
+                  ASSEMBLY LISTING OF OBJECT CODE
+
+
+MODULE INFORMATION:
+
+     CODE AREA SIZE               = 005FH     95D
+     CONSTANT AREA SIZE           = 0000H      0D
+     DATA AREA SIZE               = 000CH     12D
+     MAXIMUM STACK SIZE           = 000AH     10D
+
+iC-86 COMPILATION COMPLETE.      0 WARNINGS,     0 ERRORS

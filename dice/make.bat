@@ -1,0 +1,6 @@
+C:\IC86_41\ASM86 dice.a86
+C:\IC86_41\LINK86 dice.obj
+C:\IC86_41\LOC86 dice.lnk MAP
+rem C:\IC86_41\LOC86 dice.lnk START(0H,100H) MAP
+rem C:\IC86_41\LOC86 dice.lnk ADDRESSES(SEGMENTS(DICE(100H))) MAP
+C:\IC86_41\OH86 dice TO dice.hex
