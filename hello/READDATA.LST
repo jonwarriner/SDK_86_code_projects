@@ -1,4 +1,4 @@
-iC-86  COMPILER   READDATA                                                                   03/29/<0 16:59:05  PAGE   1
+iC-86  COMPILER   READDATA                                                                   04/13/<0 09:59:26  PAGE   1
 
 
 DOS 5.0 (045-N) iC-86 COMPILER V4.1, COMPILATION OF MODULE READDATA
@@ -25,7 +25,7 @@ COMPILER INVOKED BY: C:\IC86_41\IC86.EXE ReadData.c mod86 code searchinclude(C:\
    16     1           outword(DISP_CTRL_ADDR, 0x040);
    17     1           return(inword(DISP_DATA_ADDR));
    18     1       }
-iC-86  COMPILER   READDATA                                                                   03/29/<0 16:59:05  PAGE   2
+iC-86  COMPILER   READDATA                                                                   04/13/<0 09:59:26  PAGE   2
                   ASSEMBLY LISTING OF OBJECT CODE
 
 
