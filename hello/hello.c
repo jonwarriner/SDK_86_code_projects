@@ -16,6 +16,8 @@ uint8_t display_buf[8] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 /*uint8_t message[19] = {'G', 'o', 'a', 't', ' ', 'r', 'o', 'd', 'e', 'o', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};*/
 uint8_t message[27] = {'J', 'a', 'n', 'n', 'a', ' ', 'L', 'i', 'g', 'h', 't', 's', ' ', 'F', 'a', 'r', 't', 's', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 
+uint8_t keys[22] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', '.', ',', '-', '+', ':', 'r'};
+
 /*extern uint16_t ReadData();*/                     
 
 void main()
@@ -24,25 +26,38 @@ void main()
 /*uint8_t cnt = ' ';*/
 uint8_t cnt = 0;
 uint16_t i, j;
+uint8_t test;
 
+	/* Initialize the 8279 and clear the display and FIFO status */
 	Init_8279();
 	
 	/* Clear the display */
-	outword(DISP_CTRL_ADDR, 0x0D3);
-	for(i = 0; i < 100; i++);	
+/*	outword(DISP_CTRL_ADDR, 0x0D3);*/
+	for(i = 0; i < 50000; i++);	/* big pause to check that the display cleared */
 	
 	while(1)
 	{
-		for(i = 0; i < 10000; i++);
+		
+		/*for(i = 0; i < 10000; i++);*/
+		while((INTL8279_FIFO_STATUS & INTL8279_FIFO_STATUS_N_MASK) == 0)
+		{
+		}
+		INTL8279_READ_FIFO(0, 0);
+		test = INTL8279_DATA_READ;
+		
+		display_buf[0] = keys[test & 0x3F];
+
 		
 		/* print the contents of the display buffer */
 /*		for(i = 0; i < sizeof(display_buf); i++)*/
 		for(i = 0; i < 8; i++)
 		{
-			outword(DISP_CTRL_ADDR, 0x080 + i);									/* output WRITE DISPLAY to control word */
-			for(j = 0; j < 100; j++);
-			outword(DISP_DATA_ADDR, (uint16_t)decode_7seg(display_buf[i]));		/* output the new display data */
-			for(j = 0; j < 100; j++);
+			/*outword(DISP_CTRL_ADDR, 0x080 + i);*/									/* output WRITE DISPLAY to control word */
+			INTL8279_WRITE_DISP_RAM(0, i);
+			/*for(j = 0; j < 100; j++);*/
+			/*outword(DISP_DATA_ADDR, (uint16_t)decode_7seg(display_buf[i]));*/		/* output the new display data */
+			INTL8279_DATA_WRITE(decode_7seg(display_buf[i]));
+			/*for(j = 0; j < 100; j++);*/
 		}
 		
 		/* increment the counter but make sure it stays in the range of 0 - 6 */
@@ -61,7 +76,7 @@ uint16_t i, j;
 			display_buf[i] = display_buf[i-1];
 		}
 /*		display_buf[0] = cnt;*/
-		display_buf[0] = message[cnt];
+/*		display_buf[0] = message[cnt];*/
 		
 		/* Has a key been pressed? */
 /*		if((inword(DISP_STAT_ADDR) & 0x000F) != 0)
