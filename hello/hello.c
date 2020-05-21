@@ -5,6 +5,7 @@
 #include <I86.H>
 #include "types.h"
 #include "digits.h"
+#include "keys.h"
 #include "Intl8279.h"
 
 #define 	DISP_CTRL_ADDR	0x0FFEA
@@ -16,7 +17,6 @@ uint8_t display_buf[8] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 /*uint8_t message[19] = {'G', 'o', 'a', 't', ' ', 'r', 'o', 'd', 'e', 'o', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};*/
 uint8_t message[27] = {'J', 'a', 'n', 'n', 'a', ' ', 'L', 'i', 'g', 'h', 't', 's', ' ', 'F', 'a', 'r', 't', 's', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 
-uint8_t keys[22] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', '.', ',', '-', '+', ':', 'r'};
 
 /*extern uint16_t ReadData();*/                     
 
@@ -45,7 +45,7 @@ uint8_t test;
 		INTL8279_READ_FIFO(0, 0);
 		test = INTL8279_DATA_READ;
 		
-		display_buf[0] = keys[test & 0x3F];
+		display_buf[0] = ascii_key(test & 0x3F);
 
 		
 		/* print the contents of the display buffer */
