@@ -7,6 +7,8 @@
 #include "digits.h"
 #include "keys.h"
 #include "Intl8279.h"
+#include "Intl8255.h"
+#include "msDelay.h"
 
 #define 	DISP_CTRL_ADDR	0x0FFEA
 #define		DISP_STAT_ADDR	0x0FFEA
@@ -28,9 +30,14 @@ uint8_t cnt = 0;
 uint16_t i, j;
 uint8_t test;
 
+	disable();		/* make sure interrupts are disabled */
+
 	/* Initialize the 8279 and clear the display and FIFO status */
 	Init_8279();
 	
+	/* Initialize the 8255A (x2) */
+	Init_8255A();
+
 	/* Clear the display */
 /*	outword(DISP_CTRL_ADDR, 0x0D3);*/
 	for(i = 0; i < 50000; i++);	/* big pause to check that the display cleared */
@@ -39,13 +46,16 @@ uint8_t test;
 	{
 		
 		/*for(i = 0; i < 10000; i++);*/
-		while((INTL8279_FIFO_STATUS & INTL8279_FIFO_STATUS_N_MASK) == 0)
+		INTL8255A_P1A_WRITE(1);
+		DELAY_MS(500);
+		INTL8255A_P1A_WRITE(0);
+/*		while((INTL8279_FIFO_STATUS & INTL8279_FIFO_STATUS_N_MASK) == 0)
 		{
 		}
 		INTL8279_READ_FIFO(0, 0);
 		test = INTL8279_DATA_READ;
 		
-		display_buf[0] = ascii_key(test & 0x3F);
+		display_buf[0] = ascii_key(test & 0x3F);*/
 
 		
 		/* print the contents of the display buffer */
@@ -75,8 +85,8 @@ uint8_t test;
 		{
 			display_buf[i] = display_buf[i-1];
 		}
-/*		display_buf[0] = cnt;*/
-/*		display_buf[0] = message[cnt];*/
+		display_buf[0] = cnt;
+		display_buf[0] = message[cnt];
 		
 		/* Has a key been pressed? */
 /*		if((inword(DISP_STAT_ADDR) & 0x000F) != 0)

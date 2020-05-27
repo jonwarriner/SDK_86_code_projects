@@ -8,5 +8,7 @@ typedef unsigned short uint16_t;
 typedef long int32_t;
 typedef unsigned long uint32_t;
 
+#define	F_CLK	2.4576L			/* CPU clock in MHz */
+
 #endif /* __TYPES_H__ */
 
