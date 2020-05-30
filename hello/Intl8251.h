@@ -1,0 +1,19 @@
+#ifndef __INTL8251_H__
+#define __INTL8251_H__
+
+#include "types.h"
+#include <I86.H>
+
+#define INTL8255A_P2A_IO_BASE			0xFFF8
+#define INTL8255A_P1A_IO_BASE			0xFFF9
+#define INTL8255A_P2B_IO_BASE			0xFFFA
+#define INTL8255A_P1B_IO_BASE			0xFFFB
+#define INTL8255A_P2C_IO_BASE			0xFFFC
+#define INTL8255A_P1C_IO_BASE			0xFFFD
+#define INTL8255A_P2CTRL_IO_BASE		0xFFFE
+#define INTL8255A_P1CTRL_IO_BASE		0xFFFF
+
+
+void Init_8251A();
+
+#endif /* __INTL8251_H__ */

@@ -8,6 +8,7 @@
 #include "keys.h"
 #include "Intl8279.h"
 #include "Intl8255.h"
+#include "Intl8251.h"
 #include "msDelay.h"
 
 #define 	DISP_CTRL_ADDR	0x0FFEA
@@ -37,6 +38,9 @@ uint8_t test;
 	
 	/* Initialize the 8255A (x2) */
 	Init_8255A();
+
+	/* Initialize the 8251A */
+	Init_8251A();
 
 	/* Clear the display */
 /*	outword(DISP_CTRL_ADDR, 0x0D3);*/
