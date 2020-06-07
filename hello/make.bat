@@ -9,9 +9,12 @@ C:\IC86_41\IC86 Intl8279.c mod86 code searchinclude(C:\IC86_41\)
 C:\IC86_41\IC86 Intl8255.c mod86 code searchinclude(C:\IC86_41\)
 C:\IC86_41\IC86 Intl8251.c mod86 code searchinclude(C:\IC86_41\)
 C:\IC86_41\IC86 my_stdio.c mod86 code searchinclude(C:\IC86_41\)
+C:\IC86_41\IC86 logo.c mod86 code searchinclude(C:\IC86_41\)
 
-C:\IC86_41\LINK86 hello.obj,digits.obj,keys.obj,Intl8279.obj,Intl8255.obj,Intl8251.obj,msDelay.obj,cstart.obj,my_stdio.obj
+rem C:\IC86_41\LINK86 hello.obj,digits.obj,keys.obj,Intl8279.obj,Intl8255.obj,Intl8251.obj,msDelay.obj,cstart.obj,my_stdio.obj,logo.obj
+rem C:\IC86_41\LINK86 hello.obj,    & ; comment rem digits.obj,                     & ; comment rem keys.obj,                       & ; comment rem Intl8279.obj,                   & ; comment rem Intl8255.obj,                   & ; comment rem Intl8251.obj,                   & ; comment rem msDelay.obj,                    & ; comment rem cstart.obj,                     & ; comment rem my_stdio.obj,                   & ; comment rem logo.obj                        & ; comment rem to hello.86
 
+C:\IC86_41\LINK86 &<link.con
 
 rem RAM Memory Map 
 rem      _______________________

@@ -11,6 +11,7 @@
 #include "Intl8251.h"
 #include "msDelay.h"
 #include "my_stdio.h"
+#include "logo.h"
 
 #define 	DISP_CTRL_ADDR	0x0FFEA
 #define		DISP_STAT_ADDR	0x0FFEA
@@ -22,7 +23,6 @@ uint8_t display_buf[8] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 
 /*uint8_t message[19] = {'G', 'o', 'a', 't', ' ', 'r', 'o', 'd', 'e', 'o', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};*/
 uint8_t message[27] = {'J', 'a', 'n', 'n', 'a', ' ', 'L', 'i', 'g', 'h', 't', 's', ' ', 'F', 'a', 'r', 't', 's', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
-
 
 /*extern uint16_t ReadData();*/                     
 
@@ -47,7 +47,8 @@ uint8_t test;
 
 	for(i = 0; i < 50000; i++);	/* big pause to check that the display cleared */
 	
-	printf("Janna lights %d farts!", 10);
+	printf("%c[2J%c[H\r\n\r\n", (char)27, (char)27);
+	print_logo();
 	
 	while(1)
 	{
