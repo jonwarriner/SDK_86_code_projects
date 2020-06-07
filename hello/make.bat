@@ -1,3 +1,5 @@
+@ECHO OFF
+
 C:\IC86_41\ASM86 CSTART.ASM PRINT %define(controls)(sm ram fp mod86 asm86 em)
 C:\IC86_41\ASM86 msDelay.ASM PRINT %define(controls)(sm ram fp mod86 asm86 em)
 C:\IC86_41\IC86 hello.c mod86 code searchinclude(C:\IC86_41\)
@@ -10,5 +12,74 @@ C:\IC86_41\IC86 my_stdio.c mod86 code searchinclude(C:\IC86_41\)
 
 C:\IC86_41\LINK86 hello.obj,digits.obj,keys.obj,Intl8279.obj,Intl8255.obj,Intl8251.obj,msDelay.obj,cstart.obj,my_stdio.obj
 
-C:\IC86_41\LOC86 hello.lnk START(MAIN) INITCODE(100H) ADDRESSES(SEGMENTS(CODE(120H),DATA(800H),CONST(900H),STACK(A00H))) MAP
+
+rem RAM Memory Map 
+rem      _______________________
+rem 0H  |                       |
+rem   	|       Interrupt       |
+rem   	|      Vectors 0-4      |
+rem 13	|_______________________|
+rem 14	|                       |
+rem     |                       |
+rem     |                       |
+rem     |        Monitor        |
+rem     |         Data          |
+rem     |         Area          |
+rem     |                       |
+rem     |                       |
+rem CF  |_______________________|
+rem D0  |                       |
+rem     |                       |
+rem     |         User          |
+rem     |         Stack         |
+rem     |                       |
+rem FF  |_______________________|
+rem 100 |                       |
+rem     |       INITCODE        |
+rem     |        CSTART         |
+rem 11F |_______________________|
+rem 120 |                       |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem     |         CODE          |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem BFF |_______________________|
+rem C00 |                       |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem     |          DATA         |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem DFF |_______________________|
+rem E00 |                       |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem     |         CONST         |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem EFF |_______________________|
+rem F00 |                       |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem     |         STACK         |
+rem     |                       |
+rem     |                       |
+rem     |                       |
+rem FFF |_______________________|
+
+C:\IC86_41\LOC86 hello.lnk START(MAIN) INITCODE(100H) ADDRESSES(SEGMENTS(CODE(120H),DATA(C00H),CONST(E00H),STACK(F00H))) MAP
 C:\IC86_41\OH86 hello TO hello.hex
