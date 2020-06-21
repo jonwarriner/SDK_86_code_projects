@@ -1,18 +1,17 @@
 @ECHO OFF
 
+set :include:=C:\IC86_41
+
 rem % is a special character in Windows 2000 (probably others too)
 rem command prompt. Need to use %% 
 C:\IC86_41\ASM86 CSTART.ASM PRINT %%define(controls)(sm ram fp mod86 asm86 em)
-C:\IC86_41\ASM86 msDelay.ASM PRINT %%define(controls)(sm ram fp mod86 asm86 em)
+C:\IC86_41\ASM86 ..\utils\msDelay.ASM PRINT %%define(controls)(sm ram fp mod86 asm86 em)
 
-C:\IC86_41\IC86 hello.c mod86 code searchinclude(C:\IC86_41\)
-C:\IC86_41\IC86 digits.c mod86 code searchinclude(C:\IC86_41\)
-C:\IC86_41\IC86 keys.c mod86 code searchinclude(C:\IC86_41\)
-C:\IC86_41\IC86 Intl8279.c mod86 code searchinclude(C:\IC86_41\)
-C:\IC86_41\IC86 Intl8255.c mod86 code searchinclude(C:\IC86_41\)
-C:\IC86_41\IC86 Intl8251.c mod86 code searchinclude(C:\IC86_41\)
-C:\IC86_41\IC86 my_stdio.c mod86 code searchinclude(C:\IC86_41\)
-C:\IC86_41\IC86 logo.c mod86 code searchinclude(C:\IC86_41\)
+C:\IC86_41\IC86 swan.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
+C:\IC86_41\IC86 ..\utils\Intl8255.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
+C:\IC86_41\IC86 ..\utils\Intl8251.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
+C:\IC86_41\IC86 ..\utils\my_stdio.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
+C:\IC86_41\IC86 logo.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
 
 rem The line below would be the ideal way to call the linker
 rem and redirect the input list to a file.
@@ -95,5 +94,5 @@ rem     l                       l
 rem     l                       l
 rem FFF l_______________________l
 
-C:\IC86_41\LOC86 hello.lnk START(MAIN) INITCODE(100H) ADDRESSES(SEGMENTS(CODE(120H),DATA(C00H),CONST(E80H),STACK(F00H))) MAP
-C:\IC86_41\OH86 hello TO hello.hex
+C:\IC86_41\LOC86 swan.lnk START(MAIN) INITCODE(100H) ADDRESSES(SEGMENTS(CODE(120H),DATA(C00H),CONST(E80H),STACK(F00H))) MAP
+C:\IC86_41\OH86 swan TO swan.hex
