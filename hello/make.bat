@@ -1,7 +1,10 @@
 @ECHO OFF
 
-C:\IC86_41\ASM86 CSTART.ASM PRINT %define(controls)(sm ram fp mod86 asm86 em)
-C:\IC86_41\ASM86 msDelay.ASM PRINT %define(controls)(sm ram fp mod86 asm86 em)
+rem % is a special character in Windows 2000 (probably others too)
+rem command prompt. Need to use %% 
+C:\IC86_41\ASM86 CSTART.ASM PRINT %%define(controls)(sm ram fp mod86 asm86 em)
+C:\IC86_41\ASM86 msDelay.ASM PRINT %%define(controls)(sm ram fp mod86 asm86 em)
+
 C:\IC86_41\IC86 hello.c mod86 code searchinclude(C:\IC86_41\)
 C:\IC86_41\IC86 digits.c mod86 code searchinclude(C:\IC86_41\)
 C:\IC86_41\IC86 keys.c mod86 code searchinclude(C:\IC86_41\)
@@ -11,7 +14,18 @@ C:\IC86_41\IC86 Intl8251.c mod86 code searchinclude(C:\IC86_41\)
 C:\IC86_41\IC86 my_stdio.c mod86 code searchinclude(C:\IC86_41\)
 C:\IC86_41\IC86 logo.c mod86 code searchinclude(C:\IC86_41\)
 
-C:\IC86_41\LINK86 &<link.con
+rem The line below would be the ideal way to call the linker
+rem and redirect the input list to a file.
+rem C:\IC86_41\LINK86 &<link.con
+rem However, Windows 2000 (maybe other versions too) treat
+rem the ampersand as a way to call multiple commands from
+rem the same line.  We want to pass the ampersand to link86
+rem to use as a continuation line.  So, we need to delay
+rem expansion and create an argument variable to pass to 
+rem link86.  
+setlocal enableDelayedExpansion
+set "linkarg=&<link.con"
+C:\IC86_41\LINK86 !linkarg!
 
 rem RAM Memory Map 
 rem      _______________________
@@ -61,8 +75,8 @@ rem     l                       l
 rem     l                       l
 rem     l                       l
 rem     l                       l
-rem DFF l_______________________l
-rem E00 l                       l
+rem E7F l_______________________l
+rem E80 l                       l
 rem     l                       l
 rem     l                       l
 rem     l                       l
@@ -81,5 +95,5 @@ rem     l                       l
 rem     l                       l
 rem FFF l_______________________l
 
-C:\IC86_41\LOC86 hello.lnk START(MAIN) INITCODE(100H) ADDRESSES(SEGMENTS(CODE(120H),DATA(C00H),CONST(E00H),STACK(F00H))) MAP
+C:\IC86_41\LOC86 hello.lnk START(MAIN) INITCODE(100H) ADDRESSES(SEGMENTS(CODE(120H),DATA(C00H),CONST(E80H),STACK(F00H))) MAP
 C:\IC86_41\OH86 hello TO hello.hex

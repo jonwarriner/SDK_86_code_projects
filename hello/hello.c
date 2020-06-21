@@ -13,16 +13,16 @@
 #include "my_stdio.h"
 #include "logo.h"
 
-#define 	DISP_CTRL_ADDR	0x0FFEA
+/*#define 	DISP_CTRL_ADDR	0x0FFEA
 #define		DISP_STAT_ADDR	0x0FFEA
-#define		DISP_DATA_ADDR	0x0FFE8
+#define		DISP_DATA_ADDR	0x0FFE8*/
 
 #define SERIAL_TEST
 
 uint8_t display_buf[8] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 
 /*uint8_t message[19] = {'G', 'o', 'a', 't', ' ', 'r', 'o', 'd', 'e', 'o', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};*/
-uint8_t message[27] = {'J', 'a', 'n', 'n', 'a', ' ', 'L', 'i', 'g', 'h', 't', 's', ' ', 'F', 'a', 'r', 't', 's', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
+/*uint8_t message[27] = {'J', 'a', 'n', 'n', 'a', ' ', 'L', 'i', 'g', 'h', 't', 's', ' ', 'F', 'a', 'r', 't', 's', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};*/
 
 /*extern uint16_t ReadData();*/                     
 
