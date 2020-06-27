@@ -7,7 +7,7 @@
 #include "Intl8255.h"
 #include "Intl8251.h"
 #include "msDelay.h"
-#include "my_stdio.h"
+/*#include "my_stdio.h"*/
 #include "logo.h"
 
 void main()
@@ -26,7 +26,8 @@ uint8_t test;
 
 	for(i = 0; i < 50000; i++);	/* big pause to check that the display cleared */
 	
-	printf("%c[2J%c[H\r\n\r\n", (char)27, (char)27);
+	/*printf("%c[2J%c[H\r\n\r\n", (char)27, (char)27);*/
+	
 	print_logo();
 	
 	while(1)
@@ -34,11 +35,11 @@ uint8_t test;
 		INTL8255A_P1A_WRITE(1);
 		DELAY_MS(500);
 		INTL8255A_P1A_WRITE(0);
-		if(INTL8251A_STATUS & INTL8251A_STATUS_RXRDY_MASK)
+/*		if(INTL8251A_STATUS & INTL8251A_STATUS_RXRDY_MASK)
 		{
 			test = INTL8251A_RD_DATA;
 			while((INTL8251A_STATUS & INTL8251A_STATUS_TXRDY_MASK) == 0);
 			INTL8251A_WR_DATA(test);
-		}
+		}*/
 	}
 }

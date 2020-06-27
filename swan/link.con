@@ -3,6 +3,5 @@ swan.obj,     &
 ..\utils\Intl8251.obj,  &
 ..\utils\msDelay.obj,   &
 cstart.obj,    &
-..\utils\my_stdio.obj,  &
 logo.obj
 

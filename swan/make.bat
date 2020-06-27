@@ -10,7 +10,7 @@ C:\IC86_41\ASM86 ..\utils\msDelay.ASM PRINT %%define(controls)(sm ram fp mod86 a
 C:\IC86_41\IC86 swan.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
 C:\IC86_41\IC86 ..\utils\Intl8255.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
 C:\IC86_41\IC86 ..\utils\Intl8251.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
-C:\IC86_41\IC86 ..\utils\my_stdio.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
+rem C:\IC86_41\IC86 ..\utils\my_stdio.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
 C:\IC86_41\IC86 logo.c mod86 code searchinclude(C:\IC86_41\, ..\utils\)
 
 rem The line below would be the ideal way to call the linker
@@ -63,8 +63,8 @@ rem     l                       l
 rem     l                       l
 rem     l                       l
 rem     l                       l
-rem BFF l_______________________l
-rem C00 l                       l
+rem 4FF l_______________________l
+rem 500 l                       l
 rem     l                       l
 rem     l                       l
 rem     l                       l
@@ -94,5 +94,5 @@ rem     l                       l
 rem     l                       l
 rem FFF l_______________________l
 
-C:\IC86_41\LOC86 swan.lnk START(MAIN) INITCODE(100H) ADDRESSES(SEGMENTS(CODE(120H),DATA(C00H),CONST(E80H),STACK(F00H))) MAP
+C:\IC86_41\LOC86 swan.lnk START(MAIN) INITCODE(100H) ADDRESSES(SEGMENTS(CODE(120H),DATA(500H),CONST(E80H),STACK(F00H))) MAP
 C:\IC86_41\OH86 swan TO swan.hex

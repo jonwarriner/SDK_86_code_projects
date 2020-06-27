@@ -1,11 +1,11 @@
 hello.obj,     &
-digits.obj,    &
-keys.obj,      &
-Intl8279.obj,  &
-Intl8255.obj,  &
-Intl8251.obj,  &
-msDelay.obj,   &
+..\utils\digits.obj,    &
+..\utils\keys.obj,      &
+..\utils\Intl8279.obj,  &
+..\utils\Intl8255.obj,  &
+..\utils\Intl8251.obj,  &
+..\utils\msDelay.obj,   &
 cstart.obj,    &
-my_stdio.obj,  &
+..\utils\my_stdio.obj,  &
 logo.obj
 
