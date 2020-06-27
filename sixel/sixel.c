@@ -26,5 +26,5 @@ void sixDrawLine(uint16_t st, uint16_t lp)
         printf("~");
     }
     
-    printf("$-");
+    printf(SIX_CRLF);
 }

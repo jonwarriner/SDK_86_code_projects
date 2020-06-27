@@ -8,4 +8,6 @@ void setSixelMode();
 void setTextMode();
 void sixDrawLine(uint16_t st, uint16_t lp);
 
+#define SIX_CRLF    ("$-")
+
 #endif /* __SIXEL_H__ */
